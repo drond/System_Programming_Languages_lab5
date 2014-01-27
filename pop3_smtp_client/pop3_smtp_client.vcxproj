@@ -63,10 +63,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="base64.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="pop3_smtp.c" />
+    <ClCompile Include="recieveMail.c" />
+    <ClCompile Include="sendMail.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="base64.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="pop3_smtp.h" />
+    <ClInclude Include="recieveMail.h" />
+    <ClInclude Include="sendMail.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
