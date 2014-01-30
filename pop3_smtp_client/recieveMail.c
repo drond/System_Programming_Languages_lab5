@@ -7,11 +7,11 @@
 #include <process.h>
 #include "pop3_smtp.h"
 #include "base64.h"
-
+#include "recieveMail.h"
 #define PORT 110
 
 char* req; //request
-char* buf; //reieve buffer
+char* buf; //recieve buffer
 
 
 int recieveMail(char* login,char* pass)
@@ -46,6 +46,7 @@ int recieveMail(char* login,char* pass)
 				buf = (char*)malloc(sizeof(char)*postBoxSize*50); //allocate memory for message count*50
 				sendRequest(s,req,buf); 
 				printf("%s\n",buf);
+				free(buf);
 			}
 			else //else LIST with argument
 			{
@@ -66,6 +67,7 @@ int recieveMail(char* login,char* pass)
 				buf  = (char*)malloc(sizeof(char)*getSize(buf)+100); //allocate memory for all messag + 100 (why?! idk)
 				printf("%s\n",getMessage(s,buf));
 			}
+			free(buf);
 		}
 		else if ((strncmp(req,"QUIT",4)==0)||((strncmp(req,"quit",4)==0))) //exit
 		{
@@ -80,6 +82,7 @@ int recieveMail(char* login,char* pass)
 			buf = (char*)malloc(sizeof(char)*50); //other command sends without any operations
 			sendRequest(s,req,buf);
 			printf("%s\n",buf);
+			free(buf);
 		}
 			
 
@@ -111,6 +114,7 @@ int authenticationPop3(SOCKET s,char* mail,char* pass) //authentication on pop3 
 	
 	sprintf(req,"%s%s%s","PASS ",pass,"\r\n"); //send password
 	buf = (char*)malloc(sizeof(char)*255);
+	
 	if (sendRequest(s,req,buf)==NULL)
 	{
 		printf("Failed!\n");
@@ -139,7 +143,7 @@ char* getMessage(SOCKET s,char* buf) //cut message from command RETR
 }
 
 
-int getSize(char* message) //get size of message
+size_t getSize(char* message) //get size of message
 {
 	int i=4;
 	char mess[30];

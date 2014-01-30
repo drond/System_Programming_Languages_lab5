@@ -9,8 +9,8 @@
 
 #define PORT 587
 
-char* buf;
-char* req;
+char* buf; //for reciece answer from server
+char* req; //send request to server
 
 int sendMail(char* login,char* pass)
 {
@@ -32,6 +32,7 @@ int sendMail(char* login,char* pass)
 		return 1;
 	if (data(s)==1)//entering message, if fields from:,to: and subject: are empty your message can get in spam folder
 		return 1;
+	free(buf);
 	return 0;
 }
 
