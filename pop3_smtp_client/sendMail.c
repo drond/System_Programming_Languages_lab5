@@ -32,7 +32,7 @@ int sendMail(char* login,char* pass)
 		return 1;
 	if (data(s)==1)//entering message, if fields from:,to: and subject: are empty your message can get in spam folder
 		return 1;
-	free(buf);
+	free(buf);//			<----------------free(buf)
 	return 0;
 }
 

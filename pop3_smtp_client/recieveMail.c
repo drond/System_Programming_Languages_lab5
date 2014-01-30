@@ -46,7 +46,7 @@ int recieveMail(char* login,char* pass)
 				buf = (char*)malloc(sizeof(char)*postBoxSize*50); //allocate memory for message count*50
 				sendRequest(s,req,buf); 
 				printf("%s\n",buf);
-				free(buf);
+				
 			}
 			else //else LIST with argument
 			{
@@ -55,7 +55,7 @@ int recieveMail(char* login,char* pass)
 				printf("%s\n",buf);
 				req="";
 			}
-		
+			free(buf);//			<----------------free(buf)
 		}
 		else if ((strncmp(req,"RETR",4)==0)||((strncmp(req,"retr",4)==0))) //if command RETR or retr
 		{
@@ -67,7 +67,7 @@ int recieveMail(char* login,char* pass)
 				buf  = (char*)malloc(sizeof(char)*getSize(buf)+100); //allocate memory for all messag + 100 (why?! idk)
 				printf("%s\n",getMessage(s,buf));
 			}
-			free(buf);
+			free(buf);//			<----------------free(buf)
 		}
 		else if ((strncmp(req,"QUIT",4)==0)||((strncmp(req,"quit",4)==0))) //exit
 		{
@@ -82,7 +82,7 @@ int recieveMail(char* login,char* pass)
 			buf = (char*)malloc(sizeof(char)*50); //other command sends without any operations
 			sendRequest(s,req,buf);
 			printf("%s\n",buf);
-			free(buf);
+			free(buf);//			<----------------free(buf)
 		}
 			
 
